@@ -95,33 +95,28 @@ class Node:
 
 # ------------------------END CLASS DEFINITIONS------------------------
 
-#default_goal = [['1', '2', '3', '4'], ['5', '6', '7', '8'], ['9', '10', '11', '12'], ['13', '14', '15', '0']]
-default_goal = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '0']]
+default_goal4 = [['1', '2', '3', '4'], ['5', '6', '7', '8'], ['9', '10', '11', '12'], ['13', '14', '15', '0']]
+default_goal3 = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '0']]
 
 def get_input_grid():
     inputStr = input()
+    # return default goal states
     if (inputStr == "3x3"):
-        return default_goal
+        return default_goal3
+    if (inputStr == "4x4"):
+        return default_goal4
+    
     inputs = inputStr.split(' ')
+    # check input has correct number of elements
     if len(inputs) != grid_length**2:
         print("Invalid grid!")
         return get_input_grid()
+    # create grid from input
     grid = [[' ' for _ in range(grid_length)] for _ in range(grid_length)]
     for i in range(grid_length):
         for j in range(grid_length):
             grid[i][j] = inputs[i * grid_length + j]
     return grid
-
-grid_length = int(input("Enter the grid length:"))
-puzzle = PuzzleGrid(grid_length)
-print("Enter the initial grid:")
-puzzle.set_grid(get_input_grid())
-puzzle.display()
-
-print("Enter the goal grid:")
-goal_state = get_input_grid()
-goal_puzzle = PuzzleGrid(grid_length)
-goal_puzzle.set_grid(goal_state)
 
 visited = set()
 frontier_nodes = []
@@ -158,6 +153,19 @@ def print_path(node):
         step_count += 1
     node.puzzle_state.display()
     print()
+
+# ------------------------MAIN CODE------------------------
+grid_length = int(input("Enter the grid length: (3 for 3x3, 4 for 4x4, etc.)"))
+puzzle = PuzzleGrid(grid_length)
+goal_puzzle = PuzzleGrid(grid_length)
+
+print("Enter the initial grid:")
+puzzle.set_grid(get_input_grid())
+puzzle.display()
+
+print("Enter the goal grid:")
+goal_state = get_input_grid()
+goal_puzzle.set_grid(goal_state)
 
 solve(puzzle)
 print("Steps:", step_count)

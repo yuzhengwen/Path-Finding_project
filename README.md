@@ -9,7 +9,7 @@ To tackle this problem, we use a non-autonomous utility-based agent. The agent i
 
 ---
 # File Description
-Different py files represent different search algorithms
+Different py files represent different search algorithms  
 `main.py`: A* (Most efficient and best)  
 `BFS.py`: Breadth first search  
 `DFS.py` Depth first search  

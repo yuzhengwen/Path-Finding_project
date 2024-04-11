@@ -8,9 +8,19 @@ Each move we are only allowed to move one move up, down, left, or right by 1 ste
 To tackle this problem, we use a non-autonomous utility-based agent. The agent intelligently explores possibilities, avoiding repetition and dead ends, while making decisions on what route to explore based on a custom heuristic function.
 
 ---
+# File Description
+Different py files represent different search algorithms
+`main.py`: A* (Most efficient and best)
+`BFS.py`: Breadth first search
+`DFS.py` Depth first search
+`Depth-limited.py`: Depth limited search
+`Iterative-Deepening.py`: Iterative deepening DFS
+`Greedy.py`: Greedy Search
+`UCS.py`: Uniform Cost Search
 # How to Use
+The instruction is the same for each file
 1) Open a command prompt/terminal window in the same directory as the py file
-2) Type `py main.py` and enter (This will run the A* implementation, you can run the other algorithms too. Process is similar)
+2) Type `py main.py` and enter (This will run the A* implementation, you can run the other files to try other algorithms. Process is similar)
 3) It will ask for 3 inputs
     - Grid length: '3' represents a 3x3 grid, etc.
     - Initial position: Make sure to give the correct number of elements (denoted by grid length), separated by space. '0' represents a blank space. e.g. `1 2 3 4 0 5 6 7 8`

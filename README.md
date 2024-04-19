@@ -5,18 +5,18 @@ This is a lab exercise 8 for SC1015 (Data Science and Artificial Interlligence).
 The problem is that we are given a grid (mxm) with m number of squares and numbered blocks from 1 to n fill up the grid where n<(mxm).  
 Each move we are only allowed to move one move up, down, left, or right by 1 step, and only if the target square is unoccupied. The objective is to achieve a certain configuration in the least number of steps. (e.g. numeric order)
 
-To tackle this problem, we use a non-autonomous utility-based agent. The agent intelligently explores possibilities, avoiding repetition and dead ends, while making decisions on what route to explore based on a custom heuristic function.
+To tackle this problem, we use a non-autonomous utility-based agent. The agent intelligently explores possibilities, avoiding repetition and dead ends, while making decisions on what route to explore based on a custom evalluation function.
 
 ---
 # File Description
-Different py files represent different search algorithms
-`main.py`: A* (Most efficient and best)
-`BFS.py`: Breadth first search
-`DFS.py` Depth first search
-`Depth-limited.py`: Depth limited search
-`Iterative-Deepening.py`: Iterative deepening DFS
-`Greedy.py`: Greedy Search
-`UCS.py`: Uniform Cost Search
+Different py files represent different search algorithms  
+`main.py`: A* (Most efficient and best)  
+`BFS.py`: Breadth first search  
+`DFS.py` Depth first search  
+`Depth-limited.py`: Depth limited search  
+`Iterative-Deepening.py`: Iterative deepening DFS  
+`Greedy.py`: Greedy Search  
+`UCS.py`: Uniform Cost Search  
 # How to Use
 The instruction is the same for each file
 1) Open a command prompt/terminal window in the same directory as the py file
@@ -36,7 +36,7 @@ Contains the puzzle grid which is a 2-d array of [m][m].
 `Find Possible Swaps`: this method will locate the blank space and try to find all valid blocks surrounding it. These blocks are the only blocks able to move at the current state.  
 `Swapping 2 values`: this method will find the cell position of the 2 blocks and swap their positions in the grid  
 `Get Possible Positions`: A combination of the above 2 functions allow us to get a list of possible grids that can arise from a single swap at the current state.  
-`Difference counter`: this is the 'h' variable in our heuristic function and calculates the number of blocks that are in a position different from the goal state.  
+`Difference counter`: this is the heuristic function, or the 'h' variable in our evaluation function and calculates the number of blocks that are in a position different from the goal state.  
 
 ### Node Object
 This represents a node in our tree model used to find the optimal solution.  
@@ -45,9 +45,9 @@ Each tree contains a Puzzle Grid Object, a depth counter, and a Parent Node (onl
 The most important method in a node is the `Create Children` function.  
 This function uses the `GetPossiblePositions()` PuzzleGrid method and stores each possible position in a new child node with this node as parent.  
 The depth counter will automatically be set as `parent.depth+1`
-> The reason this object is crucial is that this way each node keeps track of its own depth. In A*/Greedy search, we may end up jumping between depth levels due to heuristic function. This way the depth is always correct.  
+> The reason this object is crucial is that this way each node keeps track of its own depth. In A*/Greedy search, we may end up jumping between depth levels due to evaluation function. This way the depth is always correct.  
 
-`Get Heuristic Function`: This is the method that will return the heuristic value of this node object. 
+`Get Heuristic Function`: This is the method that will return the evaluation function of this node object. (Naming error! Should be named 'get_evaluation_function')
 For A* Search: `f=g+h` where g is **depth** and h is **difference count**  
 
 ## General Functions
@@ -63,7 +63,7 @@ We only need to pass in the initial and final grid into the function.
 1) Create node based on grid
 2) Do goal test predicate check (if we have reached goal position)
 3) If we haven't reached goal, expand current node and add children nodes to a 'frontier' list (NOTE: We keep track of all explored states. If child node is a state we have explored, it will **not** be added  - *See below*)
-4) Sort list so that node with lowest heuristic value is at the front
+4) Sort list so that node with lowest evaluation function value is at the front
 5) Pop first item at the front of list
 6) Repeat 
 
@@ -74,7 +74,7 @@ Our algorithm **will not check a same state twice** for efficiency (and to preve
 # Other Algorithms
 After much testing, we A* seems to be the most consistent in finding the shortest path in shortest time. But 6 other algorithms have been implemented as well and are labelled accordingly.
 
-## Algorithms that do not use a heuristic function
+## Algorithms that do not use an evaluation function
 ### Breadth First Search
 BFS will search every node in each depth before expanding.   
 E.g. It will expand every depth=1 node and check for goal state, if not it will expand every depth=2 node, and this repeats until goal state is found.  
@@ -86,8 +86,8 @@ The ***basic DFS*** is highly unsuitable for our problem and the result is compl
 ***Depth Limited*** only works if the solution is within the depth the user inputs. Even if goal state is reachable within specified depth, due to randomly exploring each branch to the end, the solution may not be optimal as well.
 Lastly ***Iterative-Deepening*** will accept a max depth limit from user (can be a large number), then it will perform Depth Limited search with increasing depth limit `1 < limit < max depth limit `. It suffers from the same drawback of possibly not providing optimal solution
 
-## Algorithms with alternate Heuristic Functions
-I have also implemented 2 other algorithms that use a heuristic function similar to A*, namely ***Uniform Cost Search (UCS)*** & ***Greedy Search***.  
+## Algorithms with alternate Evaluation Functions
+I have also implemented 2 other algorithms that use an evaluation function similar to A*, namely ***Uniform Cost Search (UCS)*** & ***Greedy Search***.  
 For UCS: `f = g(depth)`
 For Greedy: `f = h(No. of blocks in the wrong position or Difference from goal)`  
 Both have been proven to be less efficient than A* in finding optimal solution and searching the least amount of nodes.
@@ -96,9 +96,9 @@ Both have been proven to be less efficient than A* in finding optimal solution a
 To observe the difference between the algorithms, we recommend working backwards from the goal state and using an initial state not more than 5 moves away from the goal state. Then you can analyse the log to see the difference in how the nodes are searched.  
 As of what we have tested, the **longest** solution A* Search could find was with the initial state `0 5 2 1 3 8 6 7 4`. It takes awhile to search but the solution was an unbelievable 22 steps!! (Feel free to try solving it manually :D)  
 
- 0 | 5 | 2 
- 1 | 3 | 8 
- 6 | 7 | 4 
+ 0 | 5 | 2   
+ 1 | 3 | 8   
+ 6 | 7 | 4   
 
 
 

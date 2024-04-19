@@ -80,10 +80,10 @@ class Node:
             self.depth = parent.depth + 1
         else:
             self.depth = 0
-    def get_heuristic(self):
+    def get_evaluation_function(self):
         return self.depth + self.puzzle_state.get_diff_count(goal_puzzle)
     def __str__ (self):
-        return f"{self.get_heuristic()}"
+        return f"{self.get_evaluation_function()}"
     def expand(self):
         nodes = []
         possible_states = self.puzzle_state.get_possible_states()
@@ -128,7 +128,7 @@ def solve(puzzle):
         print("")
         print("-----CURRENT NODE-----")
         print("Depth:", node.depth)
-        print("Heuristic:", node.get_heuristic())
+        print("evaluation_function:", node.get_evaluation_function())
         #node.puzzle_state.display()
         if node.puzzle_state.is_equal(goal_puzzle):
             print("Puzzle solved!")
@@ -139,10 +139,10 @@ def solve(puzzle):
         print("-----EXPANDING NODE-----")
         children = node.expand() 
         frontier_nodes.extend(children)
-        frontier_nodes.sort(key=lambda x: x.get_heuristic())
+        frontier_nodes.sort(key=lambda x: x.get_evaluation_function())
         #print([str(x) for x in frontier_nodes])
         print("Frontier nodes:", len(frontier_nodes))
-        print("Lowest heuristic:", frontier_nodes[0].get_heuristic())
+        print("Lowest evaluation_function:", frontier_nodes[0].get_evaluation_function())
         print("Visited nodes:", len(visited))
 
 step_count = 0

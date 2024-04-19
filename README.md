@@ -9,14 +9,14 @@ To tackle this problem, we use a non-autonomous utility-based agent. The agent i
 
 ---
 # File Description
-Different py files represent different search algorithms
-`main.py`: A* (Most efficient and best)
-`BFS.py`: Breadth first search
-`DFS.py` Depth first search
-`Depth-limited.py`: Depth limited search
-`Iterative-Deepening.py`: Iterative deepening DFS
-`Greedy.py`: Greedy Search
-`UCS.py`: Uniform Cost Search
+Different py files represent different search algorithms  
+`main.py`: A* (Most efficient and best)  
+`BFS.py`: Breadth first search  
+`DFS.py` Depth first search  
+`Depth-limited.py`: Depth limited search  
+`Iterative-Deepening.py`: Iterative deepening DFS  
+`Greedy.py`: Greedy Search  
+`UCS.py`: Uniform Cost Search  
 # How to Use
 The instruction is the same for each file
 1) Open a command prompt/terminal window in the same directory as the py file
@@ -96,9 +96,9 @@ Both have been proven to be less efficient than A* in finding optimal solution a
 To observe the difference between the algorithms, we recommend working backwards from the goal state and using an initial state not more than 5 moves away from the goal state. Then you can analyse the log to see the difference in how the nodes are searched.  
 As of what we have tested, the **longest** solution A* Search could find was with the initial state `0 5 2 1 3 8 6 7 4`. It takes awhile to search but the solution was an unbelievable 22 steps!! (Feel free to try solving it manually :D)  
 
- 0 | 5 | 2 
- 1 | 3 | 8 
- 6 | 7 | 4 
+ 0 | 5 | 2   
+ 1 | 3 | 8   
+ 6 | 7 | 4   
 
 
 
